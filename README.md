@@ -297,7 +297,7 @@ npm run test:watch
 
 ##  Links
 
-- **GitHub**: [Your Repo URL]
-- **Live API**: [Your Deployment URL]
-- **Demo Video**: [Your YouTube Video]
+- **GitHub**: ["https://github.com/RupeshSiddani/Real-Time-Data-Aggregator"]
+- **Live API**: ["https://real-time-data-aggregator.onrender.com/"]
+- **Demo Video**: ["https://youtu.be/dcqYwPVhMv0"]
 - **Postman Collection**: See `postman/collection.json`
