@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: meme-coin-aggregator
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: CACHE_TTL
+        value: 30
+      - key: WS_UPDATE_INTERVAL
+        value: 30000
+      - key: WS_PRICE_CHANGE_THRESHOLD
+        value: 5
+      - key: LOG_LEVEL
+        value: info
+```
+
+5. Save
+
+#### File 30: Create `.dockerignore` (optional, for Docker deployment)
+
+1. Right-click on root
+2. New File
+3. Name: `.dockerignore`
+4. Copy:
+```
+node_modules
+npm-debug.log
+dist
+.env
+.git
+.gitignore
+README.md
+tests
+coverage
+.vscode
