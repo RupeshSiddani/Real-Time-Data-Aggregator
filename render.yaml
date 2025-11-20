@@ -1,7 +1,7 @@
 services:
-  # The Web Service (Your Node.js App)
+  # 1. The Web Service (Your Node.js App)
   - type: web
-    name: real-time-data-aggregator # Fixed: Added your service name
+    name: real-time-data-aggregator
     env: node
     region: oregon
     plan: free
@@ -16,7 +16,7 @@ services:
         value: 30
       - key: LOG_LEVEL
         value: info
-      # Automatically get Redis details from the service defined below
+      # Link Redis Host/Port automatically from the service below
       - key: REDIS_HOST
         fromService:
           type: redis
@@ -27,15 +27,15 @@ services:
           type: redis
           name: aggregator-cache
           property: port
-      # You still need to add these manually in the dashboard or here if not secret
+      # APIs
       - key: DEXSCREENER_BASE_URL
         value: https://api.dexscreener.com/latest/dex
       - key: JUPITER_BASE_URL
         value: https://api.jup.ag/price/v2
 
-# The Redis Service (Required for caching)
-- type: redis
-  name: aggregator-cache
-  region: oregon
-  plan: free # Uses Render's free Redis tier
-  ipAllowList: [] # Only allows internal connections from your web service
+  # 2. The Redis Service (Fixed Indentation)
+  - type: redis
+    name: aggregator-cache
+    region: oregon
+    plan: free
+    ipAllowList: [] # Security: Only allow internal connections
