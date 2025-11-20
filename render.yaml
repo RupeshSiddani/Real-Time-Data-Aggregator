@@ -1,6 +1,7 @@
 services:
+  # The Web Service (Your Node.js App)
   - type: web
-    name: meme-coin-aggregator
+    name: real-time-data-aggregator # Fixed: Added your service name
     env: node
     region: oregon
     plan: free
@@ -13,30 +14,28 @@ services:
         value: 3000
       - key: CACHE_TTL
         value: 30
-      - key: WS_UPDATE_INTERVAL
-        value: 30000
-      - key: WS_PRICE_CHANGE_THRESHOLD
-        value: 5
       - key: LOG_LEVEL
         value: info
-```
+      # Automatically get Redis details from the service defined below
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: aggregator-cache
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: aggregator-cache
+          property: port
+      # You still need to add these manually in the dashboard or here if not secret
+      - key: DEXSCREENER_BASE_URL
+        value: https://api.dexscreener.com/latest/dex
+      - key: JUPITER_BASE_URL
+        value: https://api.jup.ag/price/v2
 
-5. Save
-
-#### File 30: Create `.dockerignore` (optional, for Docker deployment)
-
-1. Right-click on root
-2. New File
-3. Name: `.dockerignore`
-4. Copy:
-```
-node_modules
-npm-debug.log
-dist
-.env
-.git
-.gitignore
-README.md
-tests
-coverage
-.vscode
+# The Redis Service (Required for caching)
+- type: redis
+  name: aggregator-cache
+  region: oregon
+  plan: free # Uses Render's free Redis tier
+  ipAllowList: [] # Only allows internal connections from your web service
